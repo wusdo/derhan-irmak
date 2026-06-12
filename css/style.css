@@ -140,7 +140,7 @@ nav ul a:hover::after{transform:scaleX(1);transform-origin:left}
 .names{position:relative;line-height:.88;user-select:none}
 .names .name{
   display:block;font-family:var(--display);font-weight:800;
-  font-size:clamp(3.4rem,13.5vw,10.8rem);
+  font-size:min(13.5vw,10.8rem); /* tamamen ekrana oranlı — dar ekranda taşmaz */
   letter-spacing:-.04em;text-transform:uppercase;
   mix-blend-mode:multiply;white-space:nowrap;
 }
@@ -400,7 +400,7 @@ footer a:hover{opacity:.6}
   nav ul{gap:.9rem}
   nav ul a{font-size:.58rem;letter-spacing:.08em}
   .hero{padding:5.5rem 1rem 3.5rem}
-  .names .name{font-size:15vw}
+  .names .name{font-size:12.5vw}
   .hero .tagline{font-size:.92rem;margin-top:1.6rem}
   section{padding:3.8rem 1rem}
   .sec-head{flex-wrap:wrap;gap:.7rem;margin-bottom:2.4rem}
@@ -426,7 +426,7 @@ html[data-mobile] .work-card:nth-child(n){grid-column:auto}
 html[data-mobile] .about{margin:0 .6rem}
 html[data-mobile] .lightbox{padding:0 .8rem}
 html[data-mobile] .lightbox .lb-close{top:1rem;right:1rem}
-html[data-mobile="small"] .names .name{font-size:15vw}
+html[data-mobile="small"] .names .name{font-size:12.5vw}
 html[data-mobile="small"] .hero .tagline{margin-top:1.6rem}
 html[data-mobile="small"] .sec-head{flex-wrap:wrap;gap:.7rem;margin-bottom:2.4rem}
 html[data-mobile="small"] .sec-head .rule{min-width:48px}
