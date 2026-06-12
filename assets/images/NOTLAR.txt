@@ -1,0 +1,8 @@
+Buraya eklenecek gorseller:
+
+- derhan.jpg      -> About bolumu portresi (4:5 oran, ~1200px genislik)
+- irmak.jpg       -> About bolumu portresi (4:5 oran, ~1200px genislik)
+- og-cover.jpg    -> Sosyal medya paylasim gorseli (1200x630)
+
+Portreler icin index.html'deki "PORTRE EKLE" yorumlarindaki
+<img class="fill"> etiketlerini acmaniz yeterli.

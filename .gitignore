@@ -1,0 +1,7 @@
+# yüksek çözünürlüklü orijinal fotoğraflar — web'e küçültülmüş kopyaları gider
+_originals/
+
+# işletim sistemi çöpleri
+Thumbs.db
+desktop.ini
+.DS_Store

@@ -1,0 +1,382 @@
+/* ============================================================
+   DERHAN & IRMAK — Final
+   İki yönetmen = iki renk. Coral (Derhan) + Electric Blue (Irmak).
+   Çakıştıkları yerde mor doğar (mix-blend-mode: multiply).
+   Video eklemek için "ADD WORK VIDEOS" ve "ADD PORTRAITS"
+   yorumlarını arayın.
+   ============================================================ */
+:root{
+  --paper:#ece9df;
+  --ink:#16141a;
+  --mag:#ff4b33;      /* Derhan — coral */
+  --cyan:#2742f5;     /* Irmak  — electric blue */
+  --gold:#ffb347;
+  --plum:#5b2bb8;     /* multiply karışımı       */
+  --line:#cdc9bb;
+  --display:'Syne',sans-serif;
+  --body:'Space Grotesk',sans-serif;
+  --mono:'Space Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--body);
+  font-weight:300;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+::selection{background:var(--mag);color:var(--paper)}
+a{color:inherit;text-decoration:none}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+.mono{font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms!important;transition-duration:.01ms!important}
+  html{scroll-behavior:auto}
+}
+
+/* ================= PRELOADER — film leader ================= */
+#leader{
+  position:fixed;inset:0;z-index:1000;background:var(--ink);color:var(--paper);
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .7s cubic-bezier(.7,0,.2,1);
+}
+#leader.done{transform:translateY(-100%)}
+#leader .ring{
+  position:relative;width:min(46vmin,300px);height:min(46vmin,300px);
+  border:1px solid rgba(236,233,223,.3);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+}
+#leader .ring::before,#leader .ring::after{ /* crosshair */
+  content:"";position:absolute;background:rgba(236,233,223,.25);
+}
+#leader .ring::before{left:50%;top:-12%;bottom:-12%;width:1px}
+#leader .ring::after{top:50%;left:-12%;right:-12%;height:1px}
+#leader .sweep{
+  position:absolute;inset:-1px;border-radius:50%;
+  background:conic-gradient(rgba(236,233,223,.16) 0deg,transparent 0deg);
+}
+#leader .num{
+  font-family:var(--display);font-weight:800;font-size:clamp(5rem,18vmin,9rem);
+  line-height:1;position:relative;z-index:2;
+}
+#leader .lbl{position:absolute;bottom:8vh;left:50%;transform:translateX(-50%);opacity:.5}
+
+/* ================= CUSTOM CURSOR ================= */
+@media (pointer:fine){
+  .cursor{
+    position:fixed;top:0;left:0;z-index:990;pointer-events:none;
+    width:14px;height:14px;border-radius:50%;
+    background:var(--ink);
+    transform:translate(-50%,-50%);
+    transition:width .3s,height .3s,background .3s;
+    display:flex;align-items:center;justify-content:center;
+    mix-blend-mode:exclusion;background:#fff;
+  }
+  .cursor span{
+    font-family:var(--mono);font-size:.58rem;letter-spacing:.14em;
+    color:var(--ink);opacity:0;transition:opacity .2s;white-space:nowrap;
+  }
+  .cursor.play{width:72px;height:72px;mix-blend-mode:normal;background:var(--paper);box-shadow:0 6px 24px rgba(22,20,26,.25)}
+  .cursor.play span{opacity:1}
+}
+@media (pointer:coarse){.cursor{display:none}}
+
+/* ================= NAV ================= */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:1.1rem 2rem;
+  background:linear-gradient(to bottom, rgba(236,233,223,.92), rgba(236,233,223,0));
+}
+nav .logo{font-family:var(--display);font-weight:800;font-size:.95rem;letter-spacing:-.01em;text-transform:uppercase}
+nav .logo .d{color:var(--mag)}
+nav .logo .i{color:var(--cyan)}
+nav ul{display:flex;gap:1.8rem;list-style:none}
+nav ul a{font-family:var(--mono);font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;opacity:.6;transition:opacity .2s;position:relative}
+nav ul a:hover{opacity:1}
+/* hover'da soldan sağa çizgi süpürmesi */
+nav ul a::after{
+  content:"";position:absolute;left:0;right:0;bottom:-4px;height:1px;background:currentColor;
+  transform:scaleX(0);transform-origin:right;transition:transform .35s cubic-bezier(.7,0,.2,1);
+}
+nav ul a:hover::after{transform:scaleX(1);transform-origin:left}
+
+/* ================= HERO ================= */
+.hero{
+  min-height:100vh;min-height:100svh;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  position:relative;padding:7rem 1.5rem 4rem;text-align:center;
+}
+/* ambient glow — iki yönetmenin ışığı */
+.hero::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(38vw 38vw at 32% 38%, var(--mag) 0%, transparent 70%),
+    radial-gradient(38vw 38vw at 68% 62%, var(--cyan) 0%, transparent 70%);
+  opacity:.14;transition:background .2s;
+}
+/* opsiyonel hero fonu — showreel.mp4 varsa video,
+   yoksa assets/images/backstage/ fotoğrafları cross-fade slayt olarak döner */
+.hero .reel-bg{
+  position:absolute;inset:0;overflow:hidden;pointer-events:none;
+}
+.hero .reel-bg video{
+  width:100%;height:100%;object-fit:cover;
+  opacity:.12;filter:grayscale(.5) contrast(1.05);
+}
+.hero .reel-bg img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  opacity:0;transition:opacity 1.6s ease;
+  filter:grayscale(.5) contrast(1.05);
+}
+.hero .reel-bg img.on{opacity:.13}
+.hero .eyebrow{opacity:.55;margin-bottom:1.6rem;position:relative}
+
+.names{position:relative;line-height:.88;user-select:none}
+.names .name{
+  display:block;font-family:var(--display);font-weight:800;
+  font-size:clamp(3.4rem,13.5vw,10.8rem);
+  letter-spacing:-.04em;text-transform:uppercase;
+  mix-blend-mode:multiply;white-space:nowrap;
+}
+/* kadran isim renklerini birbirine karıştırır */
+.names .n1{color:var(--mag);transform:translateX(-.05em)}
+.names .n2{color:var(--cyan);margin-top:-.18em;transform:translateX(.07em)}
+.names .ch{display:inline-block;opacity:0;transform:translateY(.5em) rotate(4deg);animation:chIn .7s cubic-bezier(.2,.9,.2,1) forwards;animation-delay:calc(var(--d) * 50ms + 1.7s)}
+@keyframes chIn{to{opacity:1;transform:none}}
+.names .amp{
+  position:absolute;left:50%;top:50%;
+  transform:translate(-50%,-50%) rotate(-8deg);
+  font-family:var(--display);font-weight:700;
+  font-size:clamp(1.5rem,4vw,3rem);
+  color:var(--paper);
+  background:color-mix(in oklab, var(--mag), var(--cyan));
+  border-radius:50%;width:1.95em;height:1.95em;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 28px color-mix(in oklab, var(--plum) 45%, transparent);
+  opacity:0;animation:pop .6s cubic-bezier(.3,1.6,.4,1) 2.6s forwards;
+}
+@keyframes pop{to{opacity:1}}
+
+.hero .tagline{margin-top:2rem;max-width:32rem;opacity:0;animation:fadeUp .9s ease 2.9s forwards;font-size:clamp(.95rem,1.8vw,1.15rem);position:relative}
+@keyframes fadeUp{from{transform:translateY(12px)}to{opacity:.85;transform:none}}
+
+.scroll-cue{position:absolute;bottom:1.4rem;left:50%;transform:translateX(-50%);opacity:.5}
+
+/* ================= SECTION COMMON ================= */
+section{padding:6.5rem 2rem;position:relative}
+.wrap{max-width:1240px;margin:0 auto}
+.sec-head{display:flex;align-items:baseline;gap:1.2rem;margin-bottom:3.2rem}
+.sec-head h2{font-family:var(--display);font-weight:800;font-size:clamp(1.7rem,4vw,2.7rem);letter-spacing:-.02em;text-transform:uppercase}
+.sec-head .rule{flex:1;height:1px;background:var(--line)}
+.sec-head .mono{opacity:.5;white-space:nowrap}
+
+/* ====== HIGHLIGHT SWEEP — "metin seçimi" hissi ======
+   Coral bir seçim vurgusu metnin üzerinden soldan sağa süpürülür.
+   Başlıklarda scroll'la, iş kartlarında hover'la tetiklenir. */
+.hl-sweep{
+  --hl:var(--mag);
+  background-image:linear-gradient(var(--hl),var(--hl));
+  background-repeat:no-repeat;background-size:0% 100%;background-position:left center;
+  padding:.04em .14em;margin:0 -.14em;border-radius:2px;
+  -webkit-box-decoration-break:clone;box-decoration-break:clone;
+  transition:background-size .8s cubic-bezier(.7,0,.2,1) .25s,color .35s ease .55s;
+}
+.sec-head.in .hl-sweep,
+p.big.in .hl-sweep,
+.work-card:hover .work-info h3 .hl-sweep{background-size:100% 100%;color:var(--paper)}
+/* About'taki iki isim sırayla süpürülsün */
+p.big .hl-c.hl-sweep{transition-delay:.7s,1s}
+.hl-c.hl-sweep{--hl:var(--cyan)}
+/* kart başlıkları hover'da beklemeden süpürülsün */
+.work-info h3 .hl-sweep{transition:background-size .5s cubic-bezier(.7,0,.2,1),color .22s ease .14s}
+.work-card:nth-child(even) .work-info h3 .hl-sweep{--hl:var(--cyan)}
+
+/* ================= WORK ================= */
+.work-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:2.4rem 1.8rem}
+.work-card{display:block;cursor:none}
+@media (pointer:coarse){.work-card{cursor:pointer}}
+/* 7/5 - 5/7 ritmi, 4'erli tekrar eder; tek kalan son kart tam genişlik kapanış olur */
+.work-card:nth-child(4n+1){grid-column:span 7}
+.work-card:nth-child(4n+2){grid-column:span 5;align-self:end}
+.work-card:nth-child(4n+3){grid-column:span 5}
+.work-card:nth-child(4n){grid-column:span 7}
+.work-card:last-child:nth-child(4n+3),
+.work-card:last-child:nth-child(4n+1){grid-column:span 12}
+.work-thumb{
+  aspect-ratio:16/9;border-radius:4px;position:relative;overflow:hidden;
+  background:var(--grade,linear-gradient(135deg,var(--mag),var(--plum)));
+  transition:transform .45s cubic-bezier(.2,.8,.2,1);
+}
+/* === ADD WORK VIDEOS / STILLS HERE ===
+   Place <video muted loop playsinline ...> or <img> inside each
+   .work-thumb with class="fill". Gradient stays as backdrop. */
+.work-thumb .fill{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.work-card:hover .work-thumb{transform:scale(.985)}
+.work-thumb::after{ /* doku */
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity:.08;mix-blend-mode:overlay;
+}
+.work-thumb .tag{
+  position:absolute;top:14px;left:14px;z-index:2;
+  font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;
+  background:var(--paper);color:var(--ink);padding:.35em .8em;border-radius:2px;
+}
+/* hover'da çalışan scrub bar + timecode — "önizleme" hissi */
+.scrub{
+  position:absolute;left:14px;right:14px;bottom:12px;z-index:2;
+  display:flex;align-items:center;gap:.7rem;
+  opacity:0;transform:translateY(6px);transition:opacity .3s,transform .3s;
+}
+.work-card:hover .scrub{opacity:1;transform:none}
+.scrub .bar{flex:1;height:2px;background:rgba(236,233,223,.35);position:relative;overflow:hidden}
+.scrub .bar i{position:absolute;inset:0;background:var(--paper);transform:scaleX(0);transform-origin:left}
+.work-card:hover .scrub .bar i{animation:scrub 3s linear infinite}
+@keyframes scrub{to{transform:scaleX(1)}}
+.scrub .tc{font-family:var(--mono);font-size:.6rem;letter-spacing:.08em;color:var(--paper)}
+.work-info{display:flex;justify-content:space-between;align-items:baseline;margin-top:1rem;gap:1rem}
+.work-info h3{font-family:var(--display);font-weight:700;font-size:1.12rem;letter-spacing:-.01em}
+.work-info .mono{opacity:.5;white-space:nowrap}
+.work-note{opacity:.55;font-size:.9rem;margin-top:.2rem}
+
+/* ================= VIDEO LIGHTBOX ================= */
+.lightbox{
+  position:fixed;inset:0;z-index:950;
+  background:rgba(22,20,26,.94);
+  display:flex;align-items:center;justify-content:center;padding:4vmin;
+  opacity:0;visibility:hidden;
+  transition:opacity .35s ease,visibility .35s;
+}
+.lightbox.open{opacity:1;visibility:visible}
+.lightbox .frame{
+  width:min(1100px,94vw);aspect-ratio:16/9;max-height:84vh;
+  background:#000;border-radius:4px;overflow:hidden;position:relative;
+  box-shadow:0 24px 80px rgba(0,0,0,.55);
+  transform:translateY(16px) scale(.98);transition:transform .35s cubic-bezier(.2,.8,.2,1);
+}
+.lightbox.open .frame{transform:none}
+.lightbox .frame video,.lightbox .frame iframe{
+  position:absolute;inset:0;width:100%;height:100%;border:0;display:block;
+}
+.lightbox .lb-title{
+  position:absolute;left:0;right:0;bottom:calc(50% - min(1100px,94vw) * 9 / 32 - 2.6rem);
+  text-align:center;color:var(--paper);opacity:.6;pointer-events:none;
+}
+.lightbox .lb-close{
+  position:absolute;top:1.4rem;right:1.6rem;
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
+  background:none;border:1px solid rgba(236,233,223,.35);color:var(--paper);
+  padding:.7em 1.3em;border-radius:99px;cursor:pointer;
+  transition:background .25s,border-color .25s;
+}
+.lightbox .lb-close:hover{background:var(--mag);border-color:var(--mag)}
+
+/* ================= ABOUT ================= */
+.about{background:var(--ink);color:var(--paper);border-radius:6px;margin:0 1rem}
+.about .label{color:var(--gold)}
+.about p.big{
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(1.45rem,3.2vw,2.4rem);line-height:1.32;letter-spacing:-.01em;
+  max-width:56rem;margin-top:1.5rem;
+}
+.about p.big .hl-m{color:#ff8a76}
+.about p.big .hl-c{color:#7d90ff}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:1.8rem;margin-top:3.2rem;max-width:56rem}
+.person .portrait{aspect-ratio:4/5;border-radius:4px;position:relative;overflow:hidden}
+/* === ADD PORTRAITS HERE — <img class="fill" src="..." alt="..."> === */
+.person .portrait.p1{background:linear-gradient(160deg,var(--mag) 0%,#8a1f4b 100%)}
+.person .portrait.p2{background:linear-gradient(200deg,var(--cyan) 0%,#10c0c8 110%)}
+.person .portrait .fill{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.person .portrait .init{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:var(--display);font-weight:800;font-size:clamp(2.6rem,6vw,4.8rem);
+  color:rgba(236,233,223,.85);letter-spacing:-.03em;
+}
+.person h4{font-family:var(--display);font-weight:700;font-size:1.05rem;margin-top:1rem}
+.person .mono{opacity:.5}
+
+/* ================= CLIENTS — film şeridi ================= */
+.clients{padding:6rem 0;overflow:hidden}
+.clients > .mono{display:block;text-align:center;opacity:.5;margin-bottom:2.2rem}
+.filmstrip{
+  background:var(--ink);transform:rotate(-1.6deg);margin:0 -2rem;
+  padding:.55rem 0;
+}
+.filmstrip .holes{
+  height:13px;
+  background:repeating-linear-gradient(90deg,
+    transparent 0 14px, var(--paper) 14px 26px, transparent 26px 40px);
+  opacity:.92;
+}
+.filmstrip .reel{padding:.9rem 0;overflow:hidden}
+.marquee{display:flex;width:max-content;animation:roll 26s linear infinite}
+.filmstrip:hover .marquee{animation-play-state:paused}
+.marquee span{
+  font-family:var(--display);font-weight:700;
+  font-size:clamp(1.3rem,3.2vw,2.1rem);letter-spacing:-.01em;text-transform:uppercase;
+  color:var(--paper);padding:0 1.5rem;white-space:nowrap;
+}
+.marquee span::after{
+  content:"";display:inline-block;width:.5em;height:.5em;border-radius:50%;
+  margin-left:3rem;vertical-align:.12em;
+  background:linear-gradient(90deg,var(--mag),var(--cyan));
+}
+@keyframes roll{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){
+  .marquee{animation:none;flex-wrap:wrap;width:auto;justify-content:center}
+  .marquee .dup{display:none}
+}
+
+/* ================= CONTACT ================= */
+.contact{text-align:center;padding:8.5rem 2rem 7rem}
+.contact .mono{color:color-mix(in oklab,var(--mag),var(--cyan))}
+.contact h2{
+  font-family:var(--display);font-weight:800;
+  font-size:clamp(2.1rem,6.6vw,4.8rem);letter-spacing:-.03em;line-height:1.04;
+  text-transform:uppercase;margin:1.2rem 0 2.6rem;
+}
+.contact h2 em{
+  font-style:normal;
+  background:linear-gradient(100deg,var(--mag),var(--plum),var(--cyan),var(--plum),var(--mag));
+  background-size:240% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:shimmer 6s ease-in-out infinite alternate; /* gradyan yavaşça gezinir */
+}
+@keyframes shimmer{from{background-position:0% 50%}to{background-position:100% 50%}}
+.btn{
+  display:inline-block;font-family:var(--mono);font-size:.82rem;letter-spacing:.08em;
+  background:var(--ink);color:var(--paper);padding:1.05rem 2.3rem;border-radius:99px;
+  transition:background .3s;will-change:transform;
+}
+.btn:hover{background:color-mix(in oklab,var(--mag),var(--cyan))}
+.contact .sub{opacity:.5;margin-top:1.8rem;font-size:.92rem}
+
+/* ================= FOOTER ================= */
+footer{
+  border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;
+  padding:1.5rem 2rem;opacity:.55;
+}
+
+/* ================= REVEAL ================= */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width:860px){
+  nav ul{display:none}
+  section{padding:4.5rem 1.2rem}
+  .work-grid{grid-template-columns:1fr;gap:2.4rem}
+  .work-card:nth-child(n){grid-column:auto}
+  .about{margin:0 .6rem}
+  .lightbox .lb-close{top:1rem;right:1rem}
+}
+@media (max-width:560px){
+  .duo{grid-template-columns:1fr}
+  .names .name{font-size:15vw}
+}

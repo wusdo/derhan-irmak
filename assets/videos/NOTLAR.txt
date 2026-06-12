@@ -1,0 +1,12 @@
+Buraya eklenecek videolar:
+
+- showreel.mp4            -> Hero'da isimlerin arkasinda dusuk opaklikta loop oynar (otomatik algilanir)
+- *-preview.mp4           -> Is kartlarinin icindeki hover onizlemeleri
+                             (index.html'de yorum satirindaki <video class="fill"> etiketlerini acin)
+- digiturk.mp4 vb.        -> Lightbox'ta oynayan tam filmler
+                             (karta data-video="assets/videos/dosya.mp4" ekleyin)
+
+Vimeo/YouTube kullanacaksaniz dosya yerine karta
+data-embed="https://vimeo.com/123456789" eklemeniz yeterli.
+
+Oneri: onizlemeler 720p / sessiz / 5-10 sn, H.264 mp4.

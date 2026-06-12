@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Derhan &amp; Irmak — Directing Duo</title>
+<meta name="description" content="Derhan & Irmak is a creative directing duo blending the distinctive perspectives of commercial filmmakers Derhan Okay and Irmak Unutmazbaş.">
+
+<!-- Open Graph — yayına alırken og:url'i gerçek domain ile değiştirin,
+     og:image için assets/images/og-cover.jpg (1200×630) ekleyin -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Derhan &amp; Irmak — Directing Duo">
+<meta property="og:description" content="Two filmmakers, two perspectives, one frame. Commercial films with a cinematic eye. Based in Istanbul, shooting worldwide.">
+<meta property="og:url" content="https://derhanirmak.com/">
+<meta property="og:image" content="https://derhanirmak.com/assets/images/og-cover.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Space+Grotesk:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- film leader countdown -->
+<div id="leader" aria-hidden="true">
+  <div class="ring">
+    <div class="sweep" id="sweep"></div>
+    <span class="num" id="leadNum">3</span>
+  </div>
+  <span class="lbl mono">Derhan &amp; Irmak · A Directing Duo</span>
+</div>
+
+<div class="cursor" id="cursor"><span>PLAY ▶</span></div>
+
+<nav>
+  <a class="logo" href="#top"><span class="d">Derhan</span> &amp; <span class="i">Irmak</span></a>
+  <ul>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ============ HERO ============ -->
+<!-- Opsiyonel showreel: assets/videos/showreel.mp4 koymanız yeterli —
+     JS dosyayı bulursa isimlerin arkasında düşük opaklıkta loop oynatır. -->
+<header class="hero" id="top">
+  <span class="eyebrow mono">Directing Duo · Istanbul</span>
+
+  <div class="names" aria-label="Derhan and Irmak" id="names">
+    <span class="name n1" data-text="Derhan"></span>
+    <span class="name n2" data-text="Irmak"></span>
+    <span class="amp" aria-hidden="true">&amp;</span>
+  </div>
+
+  <p class="tagline">Two filmmakers, two perspectives, one frame.<br>Commercial films with a cinematic eye.</p>
+
+  <span class="scroll-cue mono">↓ Scroll</span>
+</header>
+
+<!-- ============ WORK ============ -->
+<!-- HER KART İÇİN VİDEO BAĞLAMA:
+     1) Kart içi önizleme (hover'da oynar):
+        .work-thumb içine →  <video class="fill" src="assets/videos/xxx-preview.mp4" muted loop playsinline preload="metadata"></video>
+     2) Lightbox (tıklayınca tam oynatıcı), karta attribute ekleyin:
+        data-video="assets/videos/xxx.mp4"          → yerel mp4
+        data-embed="https://vimeo.com/123456789"    → Vimeo/YouTube linki
+     İkisi de yoksa gradyan yer tutucu görünür, tıklama bir şey yapmaz. -->
+<section id="work">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <h2><span class="hl-sweep">Selected Work</span></h2>
+      <div class="rule"></div>
+      <span class="mono">Commercials &amp; Brand Films</span>
+    </div>
+
+    <div class="work-grid">
+
+      <a class="work-card reveal" href="#" data-cursor="play"
+         data-embed="https://player.vimeo.com/video/1194693311?h=32645a1aa1">
+        <div class="work-thumb" style="--grade:linear-gradient(130deg,#2742f5 0%,#10c0c8 100%)">
+          <img class="fill" src="https://i.vimeocdn.com/video/2160432337-aebad81405a0bad4acb7f171454f5fc6746a7e488542db72686244f3d89d11c4-d_1280?region=us" alt="" loading="lazy">
+          <!-- isteğe bağlı hover önizleme: <video class="fill" src="assets/videos/digiturk-preview.mp4" muted loop playsinline preload="metadata"></video> -->
+          <span class="tag">Digiturk · TVC</span>
+          <div class="scrub"><span class="tc">00:00:00:00</span><div class="bar"><i></i></div><span class="tc">00:45</span></div>
+        </div>
+        <div class="work-info"><h3><span class="hl-sweep">Digiturk — Artısı Çok Net</span></h3><span class="mono">2025</span></div>
+        <p class="work-note">National broadcast with digital cutdowns.</p>
+      </a>
+
+      <a class="work-card reveal" href="#" data-cursor="play"
+         data-embed="https://player.vimeo.com/video/1200742698?h=04773d2610">
+        <div class="work-thumb" style="--grade:linear-gradient(130deg,#ff4b33 0%,#ffb347 110%)">
+          <img class="fill" src="https://i.vimeocdn.com/video/2167945876-9ed4f3bfd94a6a2489e0c2e62fa57acc1c364eeeaa1e28b8f7249566012dbcc4-d_1280?region=us" alt="" loading="lazy">
+          <span class="tag">Tatilbudur · TVC</span>
+          <div class="scrub"><span class="tc">00:00:00:00</span><div class="bar"><i></i></div><span class="tc">00:30</span></div>
+        </div>
+        <div class="work-info"><h3><span class="hl-sweep">Tatilbudur — Ege'yi Unutmayalım</span></h3><span class="mono">2025</span></div>
+        <p class="work-note">Multi-day coastal production.</p>
+      </a>
+
+      <a class="work-card reveal" href="#" data-cursor="play"
+         data-embed="https://player.vimeo.com/video/1193275273?h=54301d3aec">
+        <div class="work-thumb" style="--grade:linear-gradient(130deg,#5b2bb8 0%,#ff4b33 120%)">
+          <img class="fill" src="https://i.vimeocdn.com/video/2158721251-6a6bbd6c5615663806cf096079ff0ff1e0c2cb25837115b802ae0f4c01235b67-d_1280?region=us" alt="" loading="lazy">
+          <span class="tag">Aksa &amp; Akkim · Brand Film</span>
+          <div class="scrub"><span class="tc">00:00:00:00</span><div class="bar"><i></i></div><span class="tc">01:00</span></div>
+        </div>
+        <div class="work-info"><h3><span class="hl-sweep">Aksa &amp; Akkim — Onun Gözünden</span></h3><span class="mono">Brand Film</span></div>
+        <p class="work-note">19 May commemorative film featuring Buse Torun.</p>
+      </a>
+
+      <a class="work-card reveal" href="#" data-cursor="play"
+         data-embed="https://player.vimeo.com/video/1183435977?h=104996eb91">
+        <div class="work-thumb" style="--grade:linear-gradient(130deg,#ffb347 0%,#ff4b33 110%)">
+          <img class="fill" src="https://i.vimeocdn.com/video/2146293934-2e29847ea4ae13b1b5b381f0b7d4840496132d28d6f8a253039a2c03f4799639-d_1280?region=us" alt="" loading="lazy">
+          <span class="tag">Sana · TVC</span>
+          <div class="scrub"><span class="tc">00:00:00:00</span><div class="bar"><i></i></div><span class="tc">00:30</span></div>
+        </div>
+        <div class="work-info"><h3><span class="hl-sweep">Sana — Nasıl Olsa Koruyucuz Sana</span></h3><span class="mono">TVC</span></div>
+        <p class="work-note">National broadcast campaign.</p>
+      </a>
+
+      <a class="work-card reveal" href="#" data-cursor="play"
+         data-embed="https://player.vimeo.com/video/1060045061?h=0e1a853dcf">
+        <div class="work-thumb" style="--grade:linear-gradient(130deg,#10c0c8 0%,#5b2bb8 100%)">
+          <img class="fill" src="https://i.vimeocdn.com/video/1986531860-d3a9ad23555a0d02cc2827bdb06bf61e69a254f1b8b48ca7d4863b2f99dec8c6-d_1280?region=us" alt="" loading="lazy">
+          <span class="tag">Mercedes-Benz · Dir. Cut</span>
+          <div class="scrub"><span class="tc">00:00:00:00</span><div class="bar"><i></i></div><span class="tc">01:00</span></div>
+        </div>
+        <div class="work-info"><h3><span class="hl-sweep">Mercedes-Benz — Travego</span></h3><span class="mono">Director's Cut</span></div>
+        <p class="work-note">Automotive film on the road.</p>
+      </a>
+
+      <a class="work-card reveal" href="#" data-cursor="play"
+         data-embed="https://player.vimeo.com/video/1154618701?h=7494122b13">
+        <div class="work-thumb" style="--grade:linear-gradient(130deg,#ff4b33 0%,#5b2bb8 100%)">
+          <img class="fill" src="https://i.vimeocdn.com/video/2107006067-cba9bbbd658c4eb9ca54efa01853ddf94e617dd93e977295bb6104870a8edd07-d_1280?region=us" alt="" loading="lazy">
+          <span class="tag">Acar Home · TVC</span>
+          <div class="scrub"><span class="tc">00:00:00:00</span><div class="bar"><i></i></div><span class="tc">00:30</span></div>
+        </div>
+        <div class="work-info"><h3><span class="hl-sweep">Acar Home — Pazar Kahvaltısı</span></h3><span class="mono">TVC</span></div>
+        <p class="work-note">Warm, table-top heavy lifestyle spot.</p>
+      </a>
+
+      <a class="work-card reveal" href="#" data-cursor="play"
+         data-embed="https://player.vimeo.com/video/826201753?h=e9d48226c8">
+        <div class="work-thumb" style="--grade:linear-gradient(130deg,#16141a 0%,#2742f5 130%)">
+          <img class="fill" src="https://i.vimeocdn.com/video/1671663504-759762a090b34346d60f28b1c28010126aaeb351a2edf95996c5e7f53d844e12-d_1280?region=us" alt="" loading="lazy">
+          <span class="tag">DS Automobiles · Dir. Cut</span>
+          <div class="scrub"><span class="tc">00:00:00:00</span><div class="bar"><i></i></div><span class="tc">01:00</span></div>
+        </div>
+        <div class="work-info"><h3><span class="hl-sweep">DS7 — Zarafeti Takip Et</span></h3><span class="mono">Director's Cut</span></div>
+        <p class="work-note">Elegance-driven automotive narrative.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="about" id="about">
+  <div class="wrap">
+    <span class="label mono">About</span>
+    <p class="big reveal">“Derhan &amp; Irmak” is a creative directing duo that blends the distinctive perspectives of commercial filmmakers <span class="hl-m hl-sweep">Derhan Okay</span> and <span class="hl-c hl-sweep">Irmak Unutmazbaş</span>.</p>
+
+    <div class="duo">
+      <div class="person reveal">
+        <div class="portrait p1">
+          <!-- PORTRE EKLE: assets/images/derhan.jpg (4:5 oran önerilir)
+          <img class="fill" src="assets/images/derhan.jpg" alt="Derhan Okay"> -->
+          <span class="init" aria-hidden="true">D.O</span>
+        </div>
+        <h4>Derhan Okay</h4>
+        <span class="mono">Director</span>
+      </div>
+      <div class="person reveal">
+        <div class="portrait p2">
+          <!-- PORTRE EKLE: assets/images/irmak.jpg (4:5 oran önerilir)
+          <img class="fill" src="assets/images/irmak.jpg" alt="Irmak Unutmazbaş"> -->
+          <span class="init" aria-hidden="true">I.U</span>
+        </div>
+        <h4>Irmak Unutmazbaş</h4>
+        <span class="mono">Director</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLIENTS — film strip ============ -->
+<div class="clients">
+  <span class="mono">Clients</span>
+  <div class="filmstrip">
+    <div class="holes" aria-hidden="true"></div>
+    <div class="reel">
+      <div class="marquee" aria-label="Digiturk, Tatilbudur, Aksa, Akkim, Sana, Mercedes-Benz, Acar Home, DS Automobiles">
+        <span>Digiturk</span><span>Tatilbudur</span><span>Aksa</span><span>Akkim</span><span>Sana</span><span>Mercedes-Benz</span><span>Acar Home</span><span>DS Automobiles</span>
+        <span class="dup" aria-hidden="true">Digiturk</span><span class="dup" aria-hidden="true">Tatilbudur</span><span class="dup" aria-hidden="true">Aksa</span><span class="dup" aria-hidden="true">Akkim</span><span class="dup" aria-hidden="true">Sana</span><span class="dup" aria-hidden="true">Mercedes-Benz</span><span class="dup" aria-hidden="true">Acar Home</span><span class="dup" aria-hidden="true">DS Automobiles</span>
+      </div>
+    </div>
+    <div class="holes" aria-hidden="true"></div>
+  </div>
+</div>
+
+<!-- ============ CONTACT ============ -->
+<section class="contact" id="contact">
+  <span class="mono">New Project</span>
+  <h2>Let’s shoot<br>the <em>next one</em>.</h2>
+  <a class="btn" href="mailto:info@derhanirmak.com" id="magnet">info@derhanirmak.com</a>
+  <p class="sub">Based in Istanbul · Shooting worldwide</p>
+</section>
+
+<footer>
+  <span class="mono">© 2026 Derhan &amp; Irmak</span>
+  <span class="mono">Directing Duo · Istanbul</span>
+</footer>
+
+<!-- ============ VIDEO LIGHTBOX ============ -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Video player" aria-hidden="true">
+  <button class="lb-close" type="button">Close ✕</button>
+  <div class="frame"><!-- video/iframe JS tarafından buraya eklenir --></div>
+  <span class="lb-title mono"></span>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>
