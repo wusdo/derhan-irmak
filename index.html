@@ -16,10 +16,27 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#ece9df">
 
+<script>
+/* Telefon algılayıcı: tarayıcı "masaüstü sitesi" modunda sahte geniş
+   viewport bildirse bile fiziksel ekran boyutu yalan söylemez.
+   CSS'teki html[data-mobile] kuralları bununla tetiklenir. */
+(function(){
+  try{
+    var s=Math.min(screen.width,screen.height);
+    if(matchMedia('(pointer:coarse)').matches && s<=820){
+      document.documentElement.setAttribute('data-mobile', s<=560?'small':'');
+      /* masaüstü modunda viewport (980px) ekrandan genişse yazıları
+         oranla büyüt ki zoom-out sonrası normal boyutta görünsünler */
+      var ratio=window.innerWidth/s;
+      if(ratio>1.2) document.documentElement.style.fontSize=(16*ratio)+'px';
+    }
+  }catch(e){}
+})();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Space+Grotesk:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/style.css?v=4">
 </head>
 <body>
 
@@ -228,6 +245,6 @@
   <span class="lb-title mono"></span>
 </div>
 
-<script src="js/main.js"></script>
+<script src="js/main.js?v=4"></script>
 </body>
 </html>

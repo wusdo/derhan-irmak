@@ -26,8 +26,9 @@ body{
   font-weight:300;
   line-height:1.6;
   -webkit-font-smoothing:antialiased;
-  overflow-x:hidden;
 }
+/* yatay kaydırma kilidi — taşan ne olursa olsun sayfa sağa sola kaymaz */
+html,body{overflow-x:hidden;overflow-x:clip}
 ::selection{background:var(--mag);color:var(--paper)}
 a{color:inherit;text-decoration:none}
 a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
@@ -411,3 +412,26 @@ footer a:hover{opacity:.6}
   .socials{gap:1.4rem;flex-wrap:wrap}
   footer{justify-content:center;text-align:center;padding:1.3rem 1rem}
 }
+
+/* ===== JS TELEFON ALGILAYICISI =====
+   index.html'deki inline script telefon tespit ederse <html> üzerine
+   data-mobile koyar. Tarayıcı masaüstü modunda 980px viewport bildirse
+   bile bu kurallar mobil düzeni zorlar (media query'den bağımsız). */
+html[data-mobile] nav{padding:.9rem 1.2rem}
+html[data-mobile] nav ul{gap:1.2rem}
+html[data-mobile] section{padding:4.5rem 1.2rem}
+html[data-mobile] .hero{padding:6.5rem 1.2rem 4rem}
+html[data-mobile] .work-grid{grid-template-columns:1fr;gap:2.4rem}
+html[data-mobile] .work-card:nth-child(n){grid-column:auto}
+html[data-mobile] .about{margin:0 .6rem}
+html[data-mobile] .lightbox{padding:0 .8rem}
+html[data-mobile] .lightbox .lb-close{top:1rem;right:1rem}
+html[data-mobile="small"] .names .name{font-size:15vw}
+html[data-mobile="small"] .hero .tagline{margin-top:1.6rem}
+html[data-mobile="small"] .sec-head{flex-wrap:wrap;gap:.7rem;margin-bottom:2.4rem}
+html[data-mobile="small"] .sec-head .rule{min-width:48px}
+html[data-mobile="small"] .work-info{flex-wrap:wrap;gap:.15rem .8rem}
+html[data-mobile="small"] .duo{grid-template-columns:1fr}
+html[data-mobile="small"] .contact{padding:6rem 1.2rem 4.5rem}
+html[data-mobile="small"] .socials{gap:1.4rem;flex-wrap:wrap}
+html[data-mobile="small"] footer{justify-content:center;text-align:center;padding:1.3rem 1rem}
